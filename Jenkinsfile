@@ -8,7 +8,17 @@ pipeline {
     stages {
         stage("Build & Deploy") {
             steps {
+                echo "Building & Deploying Application Started"
                 sh 'mvn clean deploy -DskipTests'
+                echo "Building & Deploying Application Completed"
+            }
+        }
+
+        stage("Test") {
+            steps {
+                echo "Running Unit Tests Started"
+                sh 'mvn surefire-report:report'
+                echo "Running Unit Tests Completed"
             }
         }
 
