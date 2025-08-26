@@ -11,5 +11,23 @@ pipeline {
                 sh 'mvn clean deploy -DskipTests'
             }
         }
+
+        stage("SonarQube Analysis") {
+            environment {
+                scannerHome = tool 'mehmetsungur-sonar-scanner';
+            }
+
+            steps{
+                withSonarQubeEnv('mehmetsungur-sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
     }
 }
