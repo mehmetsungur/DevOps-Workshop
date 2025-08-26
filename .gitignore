@@ -4,3 +4,4 @@ project.pem
 **/.terraform/*
 **/.terraform.lock.hcl
 .terraform/
+./target/*
