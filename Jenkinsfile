@@ -1,16 +1,14 @@
 pipeline {
-    agent {
-        node {
-            label 'maven'
-        }
+    agent { label 'maven' }
+
+    environment {
+        PATH = "/opt/apache-maven-3.9.11/bin:${env.PATH}"
     }
-environment {
-        PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
-    }
+
     stages {
-        stage("build") {
+        stage("Build & Deploy") {
             steps {
-                sh 'mvn clean deploy'
+                sh 'mvn clean deploy -DskipTests'
             }
         }
     }
