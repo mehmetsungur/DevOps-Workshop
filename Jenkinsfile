@@ -23,9 +23,12 @@ pipeline {
         }
 
         stage("SonarQube Analysis") {
+            environment {
+                scannerHome = tool 'mehmetsungur-sonar-scanner'
+            }
             steps {
                 withSonarQubeEnv('mehmetsungur-sonarqube') {
-                    sh 'mvn sonar:sonar'
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
