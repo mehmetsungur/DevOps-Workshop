@@ -1,4 +1,3 @@
----
 - hosts: jenkins-master
   become: true
   tasks:
@@ -12,9 +11,19 @@
         repo: "deb https://pkg.jenkins.io/debian-stable binary/"
         state: present
 
-    - name: install java
+    - name: install dependencies
       apt:
-        name: openjdk-11-jre
+        name:
+          - fontconfig
+          - apt-transport-https
+          - gnupg
+          - ca-certificates
+        state: present
+        update_cache: yes
+
+    - name: install java 17
+      apt:
+        name: openjdk-17-jdk
         state: present
 
     - name: install jenkins
@@ -26,6 +35,7 @@
       service:
         name: jenkins
         state: started
+        enabled: yes
 
     - name: enable jenkins to start at boot time
       service:

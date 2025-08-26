@@ -68,6 +68,14 @@ resource "aws_security_group" "demo-instance-sg" {
     cidr_blocks = ["0.0.0.0/0"] # Opens SSH for everyone (you can restrict IP addresses if you wish)
   }
 
+  ingress {
+    description = "Jenkins from anywhere"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Opens SSH for everyone (you can restrict IP addresses if you wish)
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
