@@ -17,21 +17,17 @@ pipeline {
         stage("Test") {
             steps {
                 echo "Running Unit Tests Started"
-                sh 'mvn surefire-report:report'
+                sh 'mvn test'
                 echo "Running Unit Tests Completed"
             }
         }
 
         stage("SonarQube Analysis") {
-        environment {
-            scannerHome = tool 'mehmetsungur-sonar-scanner';
-        }
-
-        steps{
-            withSonarQubeEnv('mehmetsungur-sonarqube') {
-                sh "${scannerHome}/bin/sonar-scanner"
+            steps {
+                withSonarQubeEnv('mehmetsungur-sonarqube') {
+                    sh 'mvn sonar:sonar'
+                }
             }
-        }
         }
     }
 }
