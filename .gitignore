@@ -2,3 +2,5 @@ project.pem
 **/*.tfstate
 *.tfstate.*
 **/.terraform/*
+**/.terraform.lock.hcl
+.terraform/
